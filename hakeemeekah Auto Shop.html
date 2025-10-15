@@ -11,15 +11,17 @@
 <body class="bg-light text-center p-5">
   <div id="output">
     <h1>WELCOME TO HAKEEMEEKAH AUTO SHOP</h1>
+    <p class="mt-3">Click the button below to start your order!</p>
     <button class="btn btn-primary mt-3" id="startOrder">Start Your Order</button>
   </div>
 
   <script>
+  
+    window.onload = function() {
+      alert("Welcome to HAKEEMEEKAH's AUTO SHOP!\nClick 'Start Your Order' to begin.");
 
     
-    document.getElementById("startOrder").addEventListener("click", function() {
-    alert("Welcome to HAKEEMEEKAH's AUTO SHOP!\nClick 'Start Your Order' to begin.");
-    
+      document.getElementById("startOrder").addEventListener("click", function() {
 
         const username = prompt("Welcome to Hakeemeekah Auto Shop!\nPlease enter your first name:");
         const item = prompt("We sell all types of cars.\nEnter the name of the car you want to buy:");
