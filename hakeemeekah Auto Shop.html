@@ -18,10 +18,8 @@
   <script>
   
     window.onload = function() {
-      
-
     
-      document.getElementById("startOrder").addEventListener("click", function() {
+    document.getElementById("startOrder").addEventListener("click", function() {
 
         const username = prompt("Welcome to Hakeemeekah Auto Shop!\nPlease enter your first name:");
         const item = prompt("We sell all types of cars.\nEnter the name of the car you want to buy:");
@@ -29,18 +27,28 @@
         const year = prompt("What year of the " + item + " " + model + " are you interested in?");
         let item_number = prompt("How many " + year + " " + item + " " + model + "(s) do you want to buy? (1-99)");
 
-        if (item_number < 1 || item_number > 99) {
+        if (item_number < 1 || item_number > 99) 
+        {
           alert("Invalid quantity. Please refresh and enter a number between 1 and 99.");
-        } else {
+        }
+        
+        else {
           let currentTime = new Date();
           let hour = currentTime.getHours();
           let greeting;
 
-          if (hour < 12) {
+          if (hour < 12) 
+          {
             greeting = "Good morning";
-          } else if (hour < 18) {
+          }
+          
+          
+          else if (hour < 18) 
+          {
             greeting = "Good afternoon";
-          } else {
+          } 
+          
+          else {
             greeting = "Good evening";
           }
 
