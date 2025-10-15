@@ -16,7 +16,9 @@
   </div>
 
   <script>
-    document.getElementById("startOrder").addEventListener("click", function () {
+     alert("Welcome to HAKEEMEEKAH's AUTO SHOP!");
+    
+    {
       const username = prompt("Welcome to Hakeemeekah Auto Shop!\nPlease enter your first name:");
       const item = prompt("We sell all types of cars.\nEnter the name of the car you want to buy:");
       const model = prompt("What model of the " + item + " would you like?");
@@ -24,38 +26,46 @@
       let item_number = prompt("How many " + year + " " + item + " " + model + "(s) do you want to buy? (1–99)");
 
       
-      item_number = parseInt(item_number, 10);
+    if (item_number < 1 || item_number > 99) 
+    
+    {
+      alert("Invalid quantity. Please refresh and enter a number between 1 and 99.");
+    } 
+    
+    else {
+      
+      let currentTime = new Date();
+      let hour = currentTime.getHours();
+      let greeting;
 
-      if (
-        !username || !item || !model || !year ||
-        Number.isNaN(item_number) || item_number < 1 || item_number > 99
-      ) {
-        alert("Invalid input. Please refresh and try again (quantity must be 1–99).");
-        return;
+      if (hour < 12) 
+      {
+        greeting = "Good morning";
+      } 
+      
+      else if (hour < 18) {
+        greeting = "Good afternoon";
+      } 
+      else {
+        greeting = "Good evening";
       }
 
-
-      const currentTime = new Date();
-      const hour = currentTime.getHours();
-      const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
-
       
-      const arrivalDate = new Date();
+      let arrivalDate = new Date();
       arrivalDate.setDate(currentTime.getDate() + 7);
-      const deliveryDate = arrivalDate.toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
+      let options = { year: 'numeric', month: 'long', day: 'numeric' };
+      let deliveryDate = arrivalDate.toLocaleDateString(undefined, options);
 
       
-      document.getElementById("output").innerHTML = `
+      let outputHTML = `
         <h2>${greeting}, ${username}!</h2>
         <p>Thank you for your order!</p>
-        <p>You ordered <strong>${item_number}</strong> ${year} ${item} ${model}(s).</p>
+        <p>You ordered <strong>${item_number}</strong> ${item}(s).</p>
         <p>Your expected delivery date is <strong>${deliveryDate}</strong>.</p>
       `;
-    });
+
+      document.getElementById("output").innerHTML = outputHTML;
+    }
   </script>
 </body>
 </html>
