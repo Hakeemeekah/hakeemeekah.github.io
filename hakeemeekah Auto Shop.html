@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,57 +15,56 @@
   </div>
 
   <script>
-     alert("Welcome to HAKEEMEEKAH's AUTO SHOP!");
     
-    {
+    window.onload = function() {
+      alert("Welcome to HAKEEMEEKAH's AUTO SHOP!");
+
       const username = prompt("Welcome to Hakeemeekah Auto Shop!\nPlease enter your first name:");
       const item = prompt("We sell all types of cars.\nEnter the name of the car you want to buy:");
       const model = prompt("What model of the " + item + " would you like?");
       const year = prompt("What year of the " + item + " " + model + " are you interested in?");
-      let item_number = prompt("How many " + year + " " + item + " " + model + "(s) do you want to buy? (1–99)");
+      let item_number = prompt("How many " + year + " " + item + " " + model + "(s) do you want to buy? (1-99)");
 
+      if (item_number < 1 || item_number > 99) 
       
-    if (item_number < 1 || item_number > 99) 
-    
-    {
-      alert("Invalid quantity. Please refresh and enter a number between 1 and 99.");
-    } 
-    
-    else {
-      
-      let currentTime = new Date();
-      let hour = currentTime.getHours();
-      let greeting;
-
-      if (hour < 12) 
       {
-        greeting = "Good morning";
+        alert("Invalid quantity. Please refresh and enter a number between 1 and 99.");
       } 
       
-      else if (hour < 18) {
-        greeting = "Good afternoon";
-      } 
       else {
-        greeting = "Good evening";
+        let currentTime = new Date();
+        let hour = currentTime.getHours();
+        let greeting;
+
+        if (hour < 12) 
+        
+        {
+          greeting = "Good morning";
+        } 
+        
+        else if (hour < 18) {
+          greeting = "Good afternoon";
+        } 
+        
+        else {
+          greeting = "Good evening";
+        }
+
+        let arrivalDate = new Date();
+        arrivalDate.setDate(currentTime.getDate() + 7);
+        let options = { year: 'numeric', month: 'long', day: 'numeric' };
+        let deliveryDate = arrivalDate.toLocaleDateString(undefined, options);
+
+        let outputHTML = `
+          <h2>${greeting}, ${username}!</h2>
+          <p>Thank you for your order!</p>
+          <p>You ordered <strong>${item_number}</strong> ${year} ${item} ${model}(s).</p>
+          <p>Your expected delivery date is <strong>${deliveryDate}</strong>.</p>
+        `;
+
+        document.getElementById("output").innerHTML = outputHTML;
       }
-
-      
-      let arrivalDate = new Date();
-      arrivalDate.setDate(currentTime.getDate() + 7);
-      let options = { year: 'numeric', month: 'long', day: 'numeric' };
-      let deliveryDate = arrivalDate.toLocaleDateString(undefined, options);
-
-      
-      let outputHTML = `
-        <h2>${greeting}, ${username}!</h2>
-        <p>Thank you for your order!</p>
-        <p>You ordered <strong>${item_number}</strong> ${item}(s).</p>
-        <p>Your expected delivery date is <strong>${deliveryDate}</strong>.</p>
-      `;
-
-      document.getElementById("output").innerHTML = outputHTML;
-    }
-  }
+    };
   </script>
 </body>
 </html>
