@@ -22,19 +22,34 @@
       let year = prompt("What year of the " + item + " " + model + " are you interested in?");
       let item_number = prompt("How many " + year + " " + item + " " + model + "(s) do you want to buy? (1–99)");
 
-      if (item_number < 1 || item_number > 99) 
-      {
-        alert("Invalid quantity. Please refresh and enter a number between 1 and 99.");
-        return;
-      }
-
+    if (item_number < 1 || item_number > 99) {
+      alert("Invalid quantity. Please refresh and enter a number between 1 and 99.");
+    } 
+    
+    else {
+      
       let currentTime = new Date();
       let hour = currentTime.getHours();
-      let greeting = (hour < 12) ? "Good morning" : (hour < 18) ? "Good afternoon" : "Good evening";
+      let greeting;
 
+      if (hour < 12) 
+      {
+        greeting = "Good morning";
+      } 
+      else if (hour < 18) 
+      {
+        greeting = "Good afternoon";
+      } 
+      
+      else {
+        greeting = "Good evening";
+      }
+
+      
       let arrivalDate = new Date();
       arrivalDate.setDate(currentTime.getDate() + 7);
-      let deliveryDate = arrivalDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+      let options = { year: 'numeric', month: 'long', day: 'numeric' };
+      let deliveryDate = arrivalDate.toLocaleDateString(undefined, options);
 
       document.getElementById("output").innerHTML = `
         <h2>${greeting}, ${username}!</h2>
