@@ -1,103 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>kat4Kash</title>
+  <title>Kat4Kash</title>
 
-  <!-- Bootstrap CSS -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet"
   />
-
-  <style>
-    body { background: #fff; color: #000; padding-top: 40px; }
-    img { display: block; margin: 20px auto; max-width: 400px; border-radius: 6px; }
-  </style>
 </head>
 
+<body class="bg-light text-center p-4">
+  <h2>Kat4Kash</h2>
 
-<body>
+  <button id="loadBtn" class="btn btn-primary mb-4">
+    Click here to see some cool facts about cats!
+  </button>
 
-  <div class="container text-center">
-    <h1 class="mb-3">Kat4Kash</h1>
-    
-
-    <div class="mb-3">
-      <button id="loadBtn" class="btn btn-primary me-2">Facts About Cats</button>
-      <button id="resetBtn" class="btn btn-secondary">Reset</button>
-    </div>
-
-    
-
-    <div class="table-responsive mt-3">
-      <table class="table table-bordered table-striped align-middle">
-        <thead class="table-light">
-          <tr>
-            <th>factId</th>
-            <th>fact</th>
-          </tr>
-        </thead>
-        <tbody id="factsBody"></tbody>
-      </table>
-    </div>
-
-    <img
-      id="catImg"
-      src="https://placekitten.com/400/300"
-      
-    />
+  <div class="container">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Fact ID</th>
+          <th>Fact</th>
+        </tr>
+      </thead>
+      <tbody id="factTable"></tbody>
+    </table>
   </div>
 
-  <!-- Bootstrap JS Bundle (for buttons, not required but good practice) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <div class="mb-4">
+    <img
+      id="catImg"
+      src="https://placekitten.com/300/400"
+      alt="Picture of a Cat"
+      title="Picture of a Cat"
+      height="400"
+      width="600"
+    />
+    </div>
 
   <script>
-    const API_URL = "https://brianobruno.github.io/cats.json";
-    const loadBtn = document.getElementById("loadBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const factsBody = document.getElementById("factsBody");
-    const catImg = document.getElementById("catImg");
-    const statusEl = document.getElementById("status");
+    const button = document.getElementById("loadBtn");
 
-    async function loadCatFacts() {
-      statusEl.textContent = "Fetching...";
-      try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        displayFacts(data.facts);
-        updateImage(data.catPhoto);
-        statusEl.textContent = "Data loaded successfully.";
-      } catch (error) {
-        console.error(error);
-        statusEl.textContent = "Failed to fetch data.";
+    button.addEventListener("click", async function handleClick() 
+    {
+      
+      if (button.textContent.includes("HERE ARE SOME COOL FACTS ABOUT CATS")) 
+      {
+        location.reload();
+        return;
       }
-    }
 
-    function displayFacts(facts) {
-      facts.sort((a, b) => a.factId - b.factId);
-      factsBody.innerHTML = "";
-      facts.forEach(fact => {
-        const row = document.createElement("tr");
-        row.innerHTML = `<td>${fact.factId}</td><td>${fact.text}</td>`;
-        factsBody.appendChild(row);
-      });
-    }
+      try {
+        const response = await fetch("https://brianobruno.github.io/cats.json");
+        const data = await response.json();
 
-    function updateImage(url) {
-      if (url) catImg.src = url;
-    }
+      
+        data.facts.sort((a, b) => a.factId - b.factId);
 
-    function resetPage() {
-      factsBody.innerHTML = "";
-      catImg.src = "https://placekitten.com/400/300";
-      statusEl.textContent = "Idle. Ready to fetch.";
-    }
+        const tableBody = document.getElementById("factTable");
+        tableBody.innerHTML = "";
 
-    loadBtn.addEventListener("click", loadCatFacts);
-    resetBtn.addEventListener("click", resetPage);
+       
+        data.facts.forEach(fact => 
+        {
+          const row = `<tr><td>${fact.factId}</td><td>${fact.text}</td></tr>`;
+          tableBody.innerHTML += row;
+        });
+
+        
+        document.getElementById("catImg").src = data.catPhoto;
+
+        
+        button.textContent = "HERE ARE SOME COOL FACTS ABOUT CATS";
+        button.classList.replace("btn-primary", "btn-success");
+      } 
+
+      catch (error) 
+      {
+        console.error("Error fetching API:", error);
+        alert("Failed to load data. Please try again later.");
+      }
+    });
   </script>
-
 </body>
 </html>
